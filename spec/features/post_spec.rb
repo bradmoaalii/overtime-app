@@ -14,28 +14,46 @@ describe 'navigate' do
     end
 
     it 'has a list of posts' do
-      post1=  = Post.create(date: Date.today, rationale: "Post1")
-      post2=  = Post.create(date: Date.today, rationale: "Post2")
+      post1 = Post.create(date: Date.today, rationale: "Post1")
+      post2 = Post.create(date: Date.today, rationale: "Post2")
       visit posts_path
-      expect(page).to have_content(/Post1|Post2)
+      expect(page).to have_content(/Post1|Post2/)
   end
 end
 
-Rspec.describe Post, type: :model do
   describe "Creation" do
-    it 'can be created' do
-      post = Post.create(date: Date.today, rationale: "anything")
-      expect(post).to be_valid
+    it 'has a new form that can be reached' do
+      visits new_post_path
+      expect(page.status_code).to eq(200)
     end
 
-    it 'can be created' do
-      expect(@post).to be_valid
+    it 'can be created from new form page' do
+      visit new_post_path
+
+      fill_in 'post[date]', with: Date.today
+      fill_in 'post[rationale]', with: "Some rationale"
+
+      click_on "Save"
+
+      expect(page).to have_content("Some rationale")
     end
 
-    it 'cannot be created without a date and rationale' do
-      @post.date = nil
-      @post.rationale = nil
-      expect(@post).to be_valid
-    end
+
+
+
+
+    #   post = Post.create(date: Date.today, rationale: "anything")
+    #   expect(post).to be_valid
+    # end
+
+    # it 'can be created' do
+    #   expect(@post).to be_valid
+    # end
+
+    # it 'cannot be created without a date and rationale' do
+    #   @post.date = nil
+    #   @post.rationale = nil
+    #   expect(@post).to be_valid
+    # end
   end
 end
