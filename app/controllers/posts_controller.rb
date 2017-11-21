@@ -21,9 +21,12 @@ class PostsController < ApplicationController
 	end
 
 	def edit
+		authorize @post 
 	end
 
 	def update
+		authorize @post 
+
 		@post = Post.find params[:id]
 		if @post.update(post_params)
 			redirect_to @post, notice: 'Your post was edited successfully'
