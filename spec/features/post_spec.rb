@@ -2,8 +2,13 @@
 require 'rails_helper'
 
 describe 'navigate' do
+  let(:user) { FactoryBot.create(:user) }
+
+  let(:post) do
+    Post.create(date: Date.today, rationale: "asdfdfsd", user_id: user.id)
+  end
+  
   before do
-    @user = FactoryBot.create(:user)
     login_as(user, :scope => :user)
   end
 
@@ -28,10 +33,7 @@ describe 'navigate' do
     end
 
     it 'has a scope so that only post creators can see their posts' do
-      post1 =  Post.create(date: Date.today, rationale: "winnging", user_id: @user.id)
-      post2 =  Post.create(date: Date.today, rationale: "winnging", user_id: @user.id)
-
-      non_authorized_user = User.create(first_name: 'Non', last_name: 'Authorized', email: "nonauth@example.com", password: "swordfish", password_confirmation: "swordfish")
+      other_user = User.create(first_name: 'Non', last_name: 'Authorized', email: "nonauth@example.com", password: "swordfish", password_confirmation: "swordfish")
       
       post_from_other_user = Post.create(date: Date.today, rationale: "you do not see this screen", user_id: other_user.id)
       expect(page).to have_content(/This post shouldnt be seen/)
@@ -49,11 +51,16 @@ describe 'navigate' do
 
   describe 'delete' do
     it 'can be deleted' do
-      @post = FactoryBot.create(:post)
-      @post.update(user_id: @user.id)
+      logout(:user)
+
+      delete_user = FactoryBot.create(:user)
+      login_as(delete_user, :scope => :user)
+
+      post_to_delete = Post.create(date: Date.today, rationale: 'hppy ddoobe ddo', user_id: delete_user.id)
+
       visit posts_path
 
-      click_link("delete_post_#{@post.id}_from_index")
+      click_link("delete_post_#{post_to_delete.id}_from_index")
       expect(page.status_code).to eq(200)
       end  
     end
@@ -85,25 +92,23 @@ describe 'navigate' do
   end
 
   describe 'edit' do
-    before do
-      @post = FactoryBot.create(:post)
-    end
-    it 'can be reached by clicking edit on index page'
-      visit posts_path
-
-      click_link("edit_#{@post.id}")
-      expect(page.status_code).to eg(200)
-  end
-
     it 'can be edited' do      
-      visit edit_post_path(@post)
+      visit edit_post_path(post)
 
-      it 'will have a user associated it' do
       fill_in 'post[date]', with: Date.today
       fill_in 'post[rationale]', with: "Edited content"
-      click_on "Save"
+      click_on "save"
 
       expect(page).to have_content("Edited content")
 
+      it 'cannont be edited by a non authorized user' do
+        logout(:user)
+        non_authorized_user = FactoryBot.create(:non_authorized_user)
+        login_as(non_authorized_user, :scope => :user)
+
+        visit edit_post_path(@post)
+
+        expect(current_path).to eq(root_path)
+      end
     end
 end
