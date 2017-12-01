@@ -2,9 +2,10 @@ require 'rails_helper'
 
 describe 'admin dashboard' do
 	it 'does not allow users to access without being signed in' do
-	  it 'can be reached successfully' do
+	  	it 'can be reached successfully' do
 	    visit admin_root_path
 	    expect(current.path).to eq(new_user_session)
+		end
   	end
 
 	it 'cannot be reached by a non admin users' do
@@ -24,5 +25,4 @@ describe 'admin dashboard' do
 
 	  	expect(current_path).to eq(admin_root_path)
 	end	
-
 end

@@ -33,7 +33,7 @@ describe 'navigate' do
     end
 
     it 'has a scope so that only post creators can see their posts' do
-      other_user = User.create(first_name: 'Non', last_name: 'Authorized', email: "nonauth@example.com", password: "swordfish", password_confirmation: "swordfish", "5555555555")
+      other_user = User.create(first_name: 'Non', last_name: 'Authorized', email: "nonauth@example.com", password: "swordfish", password_confirmation: "swordfish", phone: "5555555555")
       
       post_from_other_user = Post.create(date: Date.today, rationale: "you do not see this screen", user_id: other_user.id, overtime_request: 3.5)
       expect(page).to have_content(/This post shouldnt be seen/)
@@ -62,8 +62,8 @@ describe 'navigate' do
 
       click_link("delete_post_#{post_to_delete.id}_from_index")
       expect(page.status_code).to eq(200)
-      end  
-    end
+    end  
+  end
 
   describe 'creation' do
     before do
@@ -112,4 +112,5 @@ describe 'navigate' do
         expect(current_path).to eq(root_path)
       end
     end
+  end
 end
