@@ -18,16 +18,19 @@ RSpec.describe AuditLog, type: :model do
   		expect(@Audit_log).to_not be_valid
   	end
 
-  	xit 'it should always have a status' do
-
+  	it 'it should always have a status' do
+  		@Audit_log.user_id = nil
+  		expect(@Audit_log).to_not be_valid
   	end
 
-  	xit 'it should be required to have a start date' do
-
+  	it 'it should be required to have a start date' do
+  		@Audit_log.user_id = nil
+  		expect(@Audit_log).to_not be_valid
   	end
 
-  	xit 'it should have start date equal to 6 days priot' do
-
+  	it 'it should have start date equal to 6 days priot' do
+  		new_audit_log = Audit_log.create(user.last.id)
+  		expect(new_audit_log.start_date).to eq(Date.today - 6.days)
   	end
   end
 end
