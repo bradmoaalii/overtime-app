@@ -11,7 +11,7 @@ AdminUser.create!(email: "admin@test.com",
 				 password: "swordfish", 
 				 password_confirmation: "swordfish", 
 				 first_name: "Admin", 
-				 last_name: "LastNameUSer", 
+				 last_name: "LastNameUser", 
 				 phone: "2533348799")
 
 
