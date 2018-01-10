@@ -19,9 +19,10 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
-  gem 'capybara'
+  gem 'capybara', '~> 2.17'
   gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 4.8', '>= 4.8.2'
+  
 end
 
 group :development do
@@ -34,7 +35,7 @@ end
 
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'devise'
+gem 'devise', '~> 4.4'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'gritter', '~> 1.2'
