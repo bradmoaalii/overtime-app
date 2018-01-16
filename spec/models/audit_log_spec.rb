@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AuditLog, type: :model do
   before do
-  	@Audit_log = FactoryBot.create(:audit_log)
+  	@audit_log = FactoryBot.create(:audit_log)
   end
 
   describe 'creation' do
@@ -14,18 +14,18 @@ RSpec.describe AuditLog, type: :model do
 
   describe 'validations' do
   	it 'it should be required to have a user association' do
-  		@Audit_log.user_id = nil
-  		expect(@Audit_log).to_not be_valid
+  		@audit_log.user_id = nil
+  		expect(@audit_log).to_not be_valid
   	end
 
   	it 'it should always have a status' do
-  		@Audit_log.user_id = nil
-  		expect(@Audit_log).to_not be_valid
+  		@audit_log.user_id = nil
+  		expect(@audit_log).to_not be_valid
   	end
 
   	it 'it should be required to have a start date' do
-  		@Audit_log.user_id = nil
-  		expect(@Audit_log).to_not be_valid
+  		@audit_log.user_id = nil
+  		expect(@audit_log).to_not be_valid
   	end
 
   	it 'it should have start date equal to 6 days prior' do

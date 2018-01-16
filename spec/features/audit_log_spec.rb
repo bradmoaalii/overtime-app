@@ -4,8 +4,8 @@ describe 'AuditLog Feature' do
 	describe 'index' do
 		before do
 			admin_user = FactoryBot.create(:admin_user)
-	        login_as(admin_user, :scope => :user)
-	        FactoryBot.create(:audit_log)
+      login_as(admin_user, :scope => :user)
+      FactoryBot.create(:audit_log)
 		end
 
 		it 'has an index page that can be reached' do
