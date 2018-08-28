@@ -15,7 +15,7 @@ AdminUser.create(email: "admin@test.com",
 				 phone: "2533348799")
 
 
-puts "1 employee created"
+puts "1 admin created"
 
 AuditLog.create!(user_id: @employee.id, status: 0, start_date: (Date.today - 6.days))
 AuditLog.create!(user_id: @employee.id, status: 0, start_date: (Date.today - 13.days))
